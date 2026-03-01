@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: stardust-mcp-zero-to-hero
+  ai:
+    mcp:
+      server:
+        protocol: STREAMABLE
+        streamable-http:
+          mcp-endpoint: /mcp
+        title: "Stardust AI-Native Hub"
+        version: "1.0.0"
+        annotation-scanner:
+          enabled: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.ai.mcp.server.McpServer: DEBUG
+    com.stardust.mcp: DEBUG
