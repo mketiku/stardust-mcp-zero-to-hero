@@ -29,8 +29,21 @@ npx @modelcontextprotocol/inspector
 - **Click Connect**
 
 ## Documentation
-- [Architecture Decision Records (ADRs)](file:///Users/mketiku/Projects/mcp_zero_to_hero/doc/adr/001-streamable-http-transport.md)
-- [Project Mission (context.md)](file:///Users/mketiku/Projects/mcp_zero_to_hero/context.md)
+- [Architecture Decision Records (ADRs)](doc/adr/)
+- [Project Mission (context.md)](context.md)
+
+## Development Standards
+
+Before pushing any code, ensure it meets the station's quality and style requirements:
+
+1. **Format Code**: Run the auto-formatter to maintain consistency.
+   ```bash
+   ./gradlew ktlintFormat
+   ```
+2. **Verify Quality**: Run the lint check and all unit tests.
+   ```bash
+   ./gradlew check
+   ```
 
 ## Architecture FAQ
 
