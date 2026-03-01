@@ -61,8 +61,10 @@ class MockSystemService {
             bayId: String,
             pid: String,
     ): String {
-        val bay = bays.find { it.bayId == bayId } ?: return "Bay not found"
-        if (bay.isOccupied) return "Error: Bay already occupied"
+        val bay =
+                bays.find { it.bayId == bayId }
+                        ?: throw StationResourceNotFoundException("Bay", bayId)
+        if (bay.isOccupied) throw StationConflictException(bayId)
 
         val index = bays.indexOf(bay)
         bays[index] = bay.copy(isOccupied = true)
@@ -77,6 +79,10 @@ class MockSystemService {
             end: String,
             type: String,
     ): String {
+        // If the personnel doesn't exist, throw ResourceNotFound
+        if (personnelSet.none { it.pid == pid })
+                throw StationResourceNotFoundException("Personnel", pid)
+
         val id = UUID.randomUUID().toString().substring(0, 8)
         shifts.add(DutyShift(id, pid, start, end, type))
         return "SUCCESS: Duty shift created ($id)"

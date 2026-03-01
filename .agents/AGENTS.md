@@ -9,6 +9,7 @@ This guide defines the architectural and code quality standards for this reposit
 
 ## 2. Concurrency & State Safety
 - **Anti-Pattern**: Avoid global state or uncontrolled shared-mutable state.
+- **Immutability & Snapshotting**: Always prefer immutable data structures (Kotlin `data class`). Use the `.copy()` pattern for all state transitions to ensure atomic, thread-safe updates and clear history tracking.
 - **Optimistic Locking**: Use `@Version` (JPA) for any high-contention resource state changes to prevent "Lost Updates."
 - **Transactional Atomicity**: Business operations that span multiple modifications must be wrapped in a single transaction.
 
