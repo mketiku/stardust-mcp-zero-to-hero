@@ -9,15 +9,22 @@ This guide defines the architectural and code quality standards for this reposit
 
 ## 2. Concurrency & State Safety
 - **Anti-Pattern**: Avoid global state or uncontrolled shared-mutable state.
+- **Immutability & Snapshotting**: Always prefer immutable data structures (Kotlin `data class`). Use the `.copy()` pattern for all state transitions to ensure atomic, thread-safe updates and clear history tracking.
 - **Optimistic Locking**: Use `@Version` (JPA) for any high-contention resource state changes to prevent "Lost Updates."
 - **Transactional Atomicity**: Business operations that span multiple modifications must be wrapped in a single transaction.
 
 ## 3. Data Integrity & API Contracts
 - **DTO Pattern**: Internal persistence entities MUST NOT leak to the web layer. Always map to discrete `Response` and `Request` DTOs.
 - **Audit Trails**: Capture meaningful state transitions (e.g., creation, updates) rather than just overriding fields.
+
+## 4. Workflow & Automation
+- **Format Before Finishing**: Always run `./gradlew ktlintFormat` as the final step of any implementation task.
+- **Verify Before Pushing**: Ensure all tasks pass `./gradlew check` to verify both formatting and tests.
+- **Editor Synchronization**: Use the project's `.editorconfig` to ensure local IDEs (IntelliJ/VS Code) match the CI linting rules.
+
 - **Fail Fast**: Implement strict validation on all incoming requests before they reach the service layer.
 
-## 4. Operational Excellence
+## 5. Operational Excellence
 - **Observability**: Instrument key business events using metrics (e.g., Micrometer) and structured logging.
 - **Clean Commits**: Use short, lowercase prefixes: `feat:`, `fix:`, `test:`, `arch:`, `sec:`, or `docs:`.
 - **Shift-Left Security**: Ensure high-severity dependencies are flagged in CI/CD.
